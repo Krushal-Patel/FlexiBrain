@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="min-h-screen bg-gradient-to-br from-indigo-100 to-blue-100 py-12 px-4">
+  <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl p-10 border border-gray-200">
+
+    <!-- 🔥 Title -->
+    <h1 class="text-4xl font-extrabold text-center text-indigo-700 mb-2"> FlexiBrain Analyzer</h1>
+    <p class="text-center text-gray-600 mb-8">Analyze the <strong>Intent</strong> and <strong>Tone</strong> of your sentence instantly.</p>
+
+    <!-- ✍️ Form -->
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+      <textarea name="text" id="text-input" rows="4" placeholder="Type your sentence here..." required
+        class="w-full p-5 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-800 resize-none"></textarea>
+      <div class="flex justify-between text-sm text-gray-500">
+        <p>🔤 <span id="charCount">0</span> characters | 🧮 <span id="wordCount">0</span> words</p>
+        <button type="button" onclick="copyText()" class="text-blue-500 hover:underline">📋 Copy</button>
+      </div>
+      <button type="submit"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition">🔍 Analyze</button>
+    </form>
+
+    <!-- 🎯 Prediction Output -->
+    {% if intent and tone %}
+    <div class="mt-8 bg-gray-50 border-l-4 border-indigo-400 p-5 rounded-lg shadow-sm">
+      <p class="text-lg font-medium text-gray-700 mb-1">🔎 <span class="font-semibold">Predicted Intent:</span> <span class="text-indigo-700">{{ intent }}</span></p>
+      <p class="text-lg font-medium text-gray-700">🎯 <span class="font-semibold">Detected Tone:</span> <span class="text-green-600">{{ tone }}</span></p>
+    </div>
+    {% endif %}
+
+    <!-- ⬇️ Export Button -->
+    {% if user.is_authenticated %}
+    <div class="text-right mt-6">
+      <a href="{% url 'export_csv' %}" class="inline-block bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-xl shadow-md">
+        ⬇️ Export History to CSV
+      </a>
+    </div>
+    {% endif %}
+
+    <!-- 📊 Recent Predictions -->
+    {% if logs %}
+    <div class="mt-10">
+      <h2 class="text-lg font-semibold text-indigo-700 mb-3">🕒 Recent Predictions</h2>
+      <ul class="space-y-2 text-sm">
+        {% for entry in logs|slice:":5" %}
+        <li class="border-b pb-1 text-gray-700">
+          <span class="text-indigo-600 font-medium">{{ entry.intent }}</span> | 
+          <span class="text-green-600">{{ entry.tone }}</span> → 
+          "{{ entry.text|truncatewords:8 }}"
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- 👣 Footer -->
+<footer class="text-center py-6 text-sm bg-white text-gray-500 mt-10">
+  <p>© 2025 <strong>FlexiBrain</strong> — Made with 💡 by Krushal Khunt</p>
+  <p class="text-sm text-gray-500">
+  By using this site, you agree to our <a href="{% url 'terms' %}" class="text-indigo-600 underline">Terms and Conditions</a>.
+</p>
+
+</footer>
+
+
+<script>
+  const input = document.getElementById("text-input");
+  const charCount = document.getElementById("charCount");
+  const wordCount = document.getElementById("wordCount");
+
+  input.addEventListener("input", () => {
+    charCount.textContent = input.value.length;
+    wordCount.textContent = input.value.trim().split(/\s+/).filter(Boolean).length;
+  });
+
+  function copyText() {
+    input.select();
+    document.execCommand("copy");
+    alert("Copied to clipboard!");
+  }
+</script>
+{% endblock %}

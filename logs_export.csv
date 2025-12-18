@@ -1,0 +1,4 @@
+id,text,intent,tone,timestamp
+1,hi i am kk,question,Unknown,2025-07-27 06:53:47.582827
+2,open instagram,command,Unknown,2025-07-27 06:54:07.789349
+3,naruto is my favrote anime,question,Unknown,2025-07-27 06:55:21.734715

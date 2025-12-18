@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="min-h-screen bg-gray-100 py-12 px-4">
+  <div class="max-w-4xl mx-auto bg-white shadow-md rounded-xl p-6">
+    <h2 class="text-2xl font-semibold text-indigo-600 mb-4">Prediction History</h2>
+    <table class="table-auto w-full text-left border">
+      <thead class="bg-indigo-50">
+        <tr>
+          <th class="px-4 py-2 border">#</th>
+          <th class="px-4 py-2 border">Text</th>
+          <th class="px-4 py-2 border">Intent</th>
+          <th class="px-4 py-2 border">Tone</th>
+          <th class="px-4 py-2 border">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in history %}
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-2 border">{{ forloop.counter }}</td>
+          <td class="px-4 py-2 border">{{ entry.text }}</td>
+          <td class="px-4 py-2 border text-indigo-700">{{ entry.intent }}</td>
+          <td class="px-4 py-2 border text-green-600">{{ entry.tone }}</td>
+          <td class="px-4 py-2 border">{{ entry.timestamp }}</td>
+        </tr>
+        {% empty %} {# worklike loop over #}
+        <tr><td colspan="5" class="text-center py-4">No history available.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

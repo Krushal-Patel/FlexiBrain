@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FlexiBrain</title>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white text-gray-900">
+  <!-- Navbar -->
+  <nav class="bg-indigo-600 text-white py-4 shadow-md">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">🧠 FlexiBrain</h1>
+      <ul class="flex gap-4 items-center">
+        <li><a href="/" class="hover:underline">Home</a></li>
+        <li><a href="/history/" class="hover:underline">History</a></li>
+        <li><a href="/graph/" class="hover:underline">Graph</a></li>
+        <li><a href="/about/" class="hover:underline">About</a></li>
+
+        {% if user.is_authenticated %}
+          <li class="text-white font-semibold">👋 {{ user.username }}</li>
+          <li><a href="/logout/" class="hover:underline">Logout</a></li>
+        {% else %}
+          <li><a href="/login/" class="hover:underline">Login</a></li>
+          <li><a href="/signup/" class="hover:underline">Signup</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  {% block content %}{% endblock %}
+</body>
+</html>

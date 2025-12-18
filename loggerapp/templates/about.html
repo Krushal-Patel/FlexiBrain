@@ -1,0 +1,14 @@
+{% extends 'base.html' %} 
+{% block content %}
+<section class="min-h-screen bg-gray-50 py-12 px-4">
+  <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-6">
+    <h2 class="text-3xl font-bold text-indigo-600 mb-4">About FlexiBrain</h2>
+    <p class="text-gray-700 text-lg">FlexiBrain is an intelligent text classification system built using Django, ML APIs, and HuggingFace models. It detects:</p>
+    <ul class="list-disc pl-6 mt-3 text-gray-700">
+      <li><strong>Intent</strong>: Classifies if the sentence is a command, question, or statement.</li>
+      <li><strong>Tone</strong>: Uses advanced tone detection for formal, casual, aggressive, or neutral tones.</li>
+    </ul>
+    <p class="mt-4 text-sm text-gray-600">Made with 💡 by Krushal Khunt.</p>
+  </div>
+</section>
+{% endblock %}
