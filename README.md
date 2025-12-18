@@ -35,17 +35,22 @@ The project is designed with clean architecture, safe API handling, and beginner
    git clone https://github.com/your-username/FlexiBrain.git
    
 2. Go to project folder:
+   
 cd FlexiBrain/frontend/flexibrain
 
-3. Install dependencies:
+4. Install dependencies:
+   
 pip install -r requirements.txt
 
-4.Create a .env file and add:
+4.Create and add in views.py:
+
 HUGGINGFACE_API_KEY=your_api_key_here
-also for views.py
+
 
 Run the project:
+
 python manage.py migrate
+
 python manage.py runserver
 
 
